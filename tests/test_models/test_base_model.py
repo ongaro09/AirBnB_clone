@@ -11,29 +11,27 @@ import uuid
 
 
 class TestBaseModel(unittest.TestCase):
-    """
-    Test cases for the BaseModel class attributes and methods
-    """
+    """Unit tests for the BaseModel class"""
 
     def test_id_type(self):
-        """Test for the type of id attribute"""
+        """Test for the type of the id attribute"""
         my_model = BaseModel()
         self.assertEqual(type(my_model.id), str)
 
     def test_created_at_type(self):
-        """Test for the type of created_at attribute"""
+        """Test for the type of the created_at attribute"""
         my_model = BaseModel()
         self.assertEqual(type(my_model.created_at), datetime)
 
     def test_updated_at_type(self):
-        """Test for the type of updated_at attribute"""
+        """Test for the type of the updated_at attribute"""
         my_model = BaseModel()
         self.assertEqual(type(my_model.updated_at), datetime)
 
     def test_str_representation(self):
-        """Test for the __str__ representation"""
+        """Test for the __str__ method"""
         my_model = BaseModel()
-        my_model.name = "Test Model"
+        my_model.name = "My First Model"
         my_model.my_number = 89
         string = "[BaseModel] ({}) {}".format(my_model.id, my_model.__dict__)
         self.assertEqual(string, str(my_model))
@@ -41,7 +39,7 @@ class TestBaseModel(unittest.TestCase):
     def test_save_method(self):
         """Test for the save method"""
         my_model = BaseModel()
-        my_model.name = "Test Model"
+        my_model.name = "My First Model"
         my_model.my_number = 89
         my_model.save()
         self.assertNotEqual(my_model.created_at, my_model.updated_at)
@@ -49,17 +47,17 @@ class TestBaseModel(unittest.TestCase):
     def test_to_dict_method(self):
         """Test for the to_dict method"""
         my_model = BaseModel()
-        my_model.name = "Test Model"
+        my_model.name = "My First Model"
         my_model.my_number = 89
         my_model_dict = my_model.to_dict()
         self.assertEqual(my_model_dict['__class__'], 'BaseModel')
-        self.assertEqual(my_model_dict['name'], 'Test Model')
+        self.assertEqual(my_model_dict['name'], 'My First Model')
         self.assertEqual(my_model_dict['my_number'], 89)
         self.assertEqual(type(my_model_dict['created_at']), str)
         self.assertEqual(type(my_model_dict['updated_at']), str)
 
     def test_unique_id(self):
-        """Test for unique id generation"""
+        """Test for the generation of unique ids"""
         my_model = BaseModel()
         uuid1 = my_model.id
         my_model = BaseModel()
@@ -90,6 +88,20 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(type(new_model.created_at), datetime)
         self.assertEqual(type(new_model.updated_at), datetime)
 
+    def test_init_with_single_attribute_dict(self):
+        """
+        Test initialization with a dictionary containing a single attribute
+        """
+        sample_dict = {'name': 'Single Attribute'}
+        new_model = BaseModel(**sample_dict)
+        self.assertEqual(new_model.name, 'Single Attribute')
+
+    def test_init_with_invalid_attribute(self):
+        """Test initialization with an invalid attribute"""
+        sample_dict = {'name': 'Invalid Attribute', 'invalid': 'Invalid'}
+        new_model = BaseModel(**sample_dict)
+        self.assertEqual(new_model.name, 'Invalid Attribute')
+
     def test_save_method_file_storage(self):
         """Test if BaseModel instance is saved via FileStorage"""
         fs = FileStorage()
@@ -108,7 +120,7 @@ class TestBaseModel(unittest.TestCase):
         new_model.save()
         fs.reload()
         self.assertIn(
-            f"{new_model.__class__.__name__}.{new_model.id}", fs.all())
+                f"{new_model.__class__.__name__}.{new_model.id}", fs.all())
 
 
 if __name__ == '__main__':
