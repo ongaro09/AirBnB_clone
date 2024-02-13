@@ -4,7 +4,6 @@ aspects of the HBnB application.
 
 The console allows users to perform operations such as creating, updating,
 deleting, and querying objects stored in the application's database."""
-
 import cmd
 import re
 from shlex import split
@@ -16,7 +15,6 @@ from models.city import City
 from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
-
 
 
 def parse_arguments(arg):
@@ -44,7 +42,6 @@ def parse_arguments(arg):
         token_list = [i.strip(",") for i in token_list]
         token_list.append(curly_braces.group())
         return token_list
-
 
 
 class HBNBCommand(cmd.Cmd):
@@ -105,7 +102,7 @@ class HBNBCommand(cmd.Cmd):
         """Usage: create <class>
         Create a new class instance and print its id.
         """
-        argl = parse(arg)
+        argl = parse_arguments(arg)
         if len(argl) == 0:
             print("** class name missing **")
         elif argl[0] not in HBNBCommand.__classes:
@@ -118,7 +115,7 @@ class HBNBCommand(cmd.Cmd):
         """Usage: show <class> <id> or <class>.show(<id>)
         Display the string representation of a class instance of a given id.
         """
-        argl = parse(arg)
+        argl = parse_arguments(arg)
         objdict = storage.all()
         if len(argl) == 0:
             print("** class name missing **")
@@ -134,7 +131,7 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, arg):
         """Usage: destroy <class> <id> or <class>.destroy(<id>)
         Delete a class instance of a given id."""
-        argl = parse(arg)
+        argl = parse_arguments(arg)
         objdict = storage.all()
         if len(argl) == 0:
             print("** class name missing **")
@@ -152,7 +149,7 @@ class HBNBCommand(cmd.Cmd):
         """Usage: all or all <class> or <class>.all()
         Display string representations of all instances of a given class.
         If no class is specified, displays all instantiated objects."""
-        argl = parse(arg)
+        argl = parse_arguments(arg)
         if len(argl) > 0 and argl[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
         else:
@@ -167,7 +164,7 @@ class HBNBCommand(cmd.Cmd):
     def do_count(self, arg):
         """Usage: count <class> or <class>.count()
         Retrieve the number of instances of a given class."""
-        argl = parse(arg)
+        argl = parse_arguments(arg)
         count = 0
         for obj in storage.all().values():
             if argl[0] == obj.__class__.__name__:
@@ -195,7 +192,7 @@ class HBNBCommand(cmd.Cmd):
         Returns:
         bool: True if the update was successful, False otherwise.
         """
-        arg_list = parse(arg)
+        arg_list = parse_arguments(arg)
         object_dict = storage.all()
 
         if len(arg_list) == 0:
