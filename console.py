@@ -163,50 +163,50 @@ class HBNBCommand(cmd.Cmd):
         print(count)
 
     def do_update(self, arg):
-    """Update a class instance with the given ID by adding or updating
-    a specified attribute key/value pair or dictionary.
+        """Update a class instance with the given ID by adding or updating
+        a specified attribute key/value pair or dictionary.
 
-    Usage:
+        Usage:
         - update <class> <id> <attribute_name> <attribute_value>
         - <class>.update(<id>, <attribute_name>, <attribute_value>)
         - <class>.update(<id>, <dictionary>)
 
-    Example:
+        Example:
         - update ModelName 12345 attribute_name attribute_value
         - ModelName.update(12345, attribute_name, attribute_value)
         - ModelName.update(12345, {'attribute_name': 'attribute_value'})
 
-    Args:
+        Args:
         arg (str): A string containing the class name, instance ID, attribute
         name, and attribute value or dictionary to update.
 
-    Returns:
+        Returns:
         bool: True if the update was successful, False otherwise.
-    """
-    arg_list = parse(arg)
-    object_dict = storage.all()
+        """
+        arg_list = parse(arg)
+        object_dict = storage.all()
 
-    if len(arg_list) == 0:
-        print("** Missing class name **")
-        return False
-    if arg_list[0] not in HBNBCommand.__classes:
-        print("** Class doesn't exist **")
-        return False
-    if len(arg_list) == 1:
-        print("** Missing instance ID **")
-        return False
-    if "{}.{}".format(arg_list[0], arg_list[1]) not in object_dict.keys():
-        print("** No instance found **")
-        return False
-    if len(arg_list) == 2:
-        print("** Missing attribute name **")
-        return False
-    if len(arg_list) == 3:
-        try:
-            type(eval(arg_list[2])) != dict
-        except NameError:
-            print("** Missing attribute value **")
+        if len(arg_list) == 0:
+            print("** Missing class name **")
             return False
+        if arg_list[0] not in HBNBCommand.__classes:
+            print("** Class doesn't exist **")
+            return False
+        if len(arg_list) == 1:
+            print("** Missing instance ID **")
+            return False
+        if "{}.{}".format(arg_list[0], arg_list[1]) not in object_dict.keys():
+            print("** No instance found **")
+            return False
+        if len(arg_list) == 2:
+            print("** Missing attribute name **")
+            return False
+        if len(arg_list) == 3:
+            try:
+                type(eval(arg_list[2])) != dict
+            except NameError:
+                print("** Missing attribute value **")
+                return False
 
         if len(argl) == 4:
             obj = objdict["{}.{}".format(argl[0], argl[1])]
