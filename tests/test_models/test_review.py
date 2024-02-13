@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 """Unittest for Review"""
 
+import os
+import models
 import unittest
-from models.review import Review
-from models.base_model import BaseModel
 from datetime import datetime
-
+from time import sleep
+from models.review import Review
 
 class TestReview(unittest.TestCase):
     """Unittest for Review"""

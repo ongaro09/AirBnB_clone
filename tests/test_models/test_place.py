@@ -1,13 +1,12 @@
 #!/usr/bin/python3
 """Unittest for Place class"""
 
+import os
+import models
 import unittest
-from models.place import Place
-from models.base_model import BaseModel
 from datetime import datetime
-from models import storage
-from models.engine.file_storage import FileStorage
-
+from time import sleep
+from models.place import Place
 
 class TestPlace(unittest.TestCase):
     """Unittest for Place class"""

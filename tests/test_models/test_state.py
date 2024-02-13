@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 """Unittest for State"""
 
+import os
+import models
 import unittest
-from models.state import State
-from models.base_model import BaseModel
 from datetime import datetime
-from models import storage
-
+from time import sleep
+from models.state import State
 
 class TestState(unittest.TestCase):
     """Unittest for State"""

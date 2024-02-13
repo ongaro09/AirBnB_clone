@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 """Unittest for Amenity"""
 
+import os
+import models
 import unittest
-from models.amenity import Amenity
-from models.base_model import BaseModel
-from models.engine.file_storage import FileStorage
 from datetime import datetime
-
+from time import sleep
+from models.amenity import Amenity
 
 class TestAmenity(unittest.TestCase):
     """Unittest for Amenity"""

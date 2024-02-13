@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 """Unittest for User class"""
 
+import os
+import models
 import unittest
-from models.user import User
-from models.base_model import BaseModel
 from datetime import datetime
-from models.engine.file_storage import FileStorage
-
+from time import sleep
+from models.user import User
 
 class TestUser(unittest.TestCase):
     """Unittest for User class"""

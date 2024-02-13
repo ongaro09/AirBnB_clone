@@ -1,9 +1,12 @@
 #!/usr/bin/python3
 """Unittest for City class."""
+
+import os
+import models
 import unittest
-from models.city import City
-from models.base_model import BaseModel
 from datetime import datetime
+from time import sleep
+from models.city import City
 
 
 class TestCity(unittest.TestCase):
