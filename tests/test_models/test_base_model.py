@@ -48,7 +48,6 @@ class TestBaseModelInstantiation(unittest.TestCase):
         base_model_2 = BaseModel()
         self.assertLess(base_model_1.updated_at, base_model_2.updated_at)
 
-
     def test_string_representation(self):
         current_datetime = datetime.today()
         datetime_repr = repr(current_datetime)
@@ -61,7 +60,6 @@ class TestBaseModelInstantiation(unittest.TestCase):
         self.assertIn("'created_at': " + datetime_repr, base_model_str)
         self.assertIn("'updated_at': " + datetime_repr, base_model_str)
 
-
     def test_unused_args(self):
         base_model = BaseModel(None)
         self.assertNotIn(None, base_model.__dict__.values())
@@ -69,7 +67,8 @@ class TestBaseModelInstantiation(unittest.TestCase):
     def test_instantiation_with_kwargs(self):
         current_datetime = datetime.today()
         current_datetime_iso = current_datetime.isoformat()
-        base_model = BaseModel(id="345", created_at=current_datetime_iso, updated_at=current_datetime_iso)
+        base_model = BaseModel(id="345", created_at=current_datetime_iso,
+                               updated_at=current_datetime_iso)
         self.assertEqual(base_model.id, "345")
         self.assertEqual(base_model.created_at, current_datetime)
         self.assertEqual(base_model.updated_at, current_datetime)
@@ -81,7 +80,8 @@ class TestBaseModelInstantiation(unittest.TestCase):
     def test_instantiation_with_args_and_kwargs(self):
         current_datetime = datetime.today()
         current_datetime_iso = current_datetime.isoformat()
-        base_model = BaseModel("12", id="345", created_at=current_datetime_iso, updated_at=current_datetime_iso)
+        base_model = BaseModel("12", id="345", created_at=current_datetime_iso,
+                               updated_at=current_datetime_iso)
         self.assertEqual(base_model.id, "345")
         self.assertEqual(base_model.created_at, current_datetime)
         self.assertEqual(base_model.updated_at, current_datetime)
@@ -121,7 +121,8 @@ class TestBaseModel_save(unittest.TestCase):
         self.assertLess(first_updated_at, base_model.updated_at)
 
     def test_two_saves(self):
-        """Test whether consecutive saves of a BaseModel instance update its 'updated_at' attribute."""
+        """Test whether consecutive saves of a BaseModel instance
+        update its 'updated_at' attribute."""
         base_model = BaseModel()
         sleep(0.05)
         first_updated_at = base_model.updated_at
@@ -133,13 +134,15 @@ class TestBaseModel_save(unittest.TestCase):
         self.assertLess(second_updated_at, base_model.updated_at)
 
     def test_save_with_arg(self):
-        """Test whether attempting to save a BaseModel instance with an argument raises a TypeError."""
+        """Test whether attempting to save a BaseModel
+        instance with an argument raises a TypeError."""
         base_model = BaseModel()
         with self.assertRaises(TypeError):
             base_model.save(None)
 
     def test_save_updates_file(self):
-        """Test whether saving a BaseModel instance updates the corresponding JSON file."""
+        """Test whether saving a BaseModel instance
+        updates the corresponding JSON file."""
         base_model = BaseModel()
         base_model.save()
         base_model_id = "BaseModel." + base_model.id
@@ -148,15 +151,18 @@ class TestBaseModel_save(unittest.TestCase):
 
 
 class TestBaseModelToDict(unittest.TestCase):
-    """Unit tests for the to_dict method of the BaseModel class."""
+    """Unit tests for the to_dict method
+    of the BaseModel class."""
 
     def test_to_dict_type(self):
-        """Test whether the to_dict method returns a dictionary."""
+        """Test whether the to_dict method
+        returns a dictionary."""
         base_model = BaseModel()
         self.assertTrue(dict, type(base_model.to_dict()))
 
     def test_to_dict_contains_correct_keys(self):
-        """Test whether the dictionary returned by to_dict contains the correct keys."""
+        """Test whether the dictionary returned
+        by to_dict contains the correct keys."""
         base_model = BaseModel()
         self.assertIn("id", base_model.to_dict())
         self.assertIn("created_at", base_model.to_dict())
@@ -164,7 +170,8 @@ class TestBaseModelToDict(unittest.TestCase):
         self.assertIn("__class__", base_model.to_dict())
 
     def test_to_dict_contains_added_attributes(self):
-        """Test whether to_dict includes attributes added after instantiation."""
+        """Test whether to_dict includes attributes
+        added after instantiation."""
         base_model = BaseModel()
         base_model.name = "Egerton"
         base_model.my_number = 98
@@ -172,14 +179,16 @@ class TestBaseModelToDict(unittest.TestCase):
         self.assertIn("my_number", base_model.to_dict())
 
     def test_to_dict_datetime_attributes_are_strs(self):
-        """Test whether datetime attributes in the dictionary are strings."""
+        """Test whether datetime attributes
+        in the dictionary are strings."""
         base_model = BaseModel()
         base_model_dict = base_model.to_dict()
         self.assertEqual(str, type(base_model_dict["created_at"]))
         self.assertEqual(str, type(base_model_dict["updated_at"]))
 
     def test_to_dict_output(self):
-        """Test whether the output of to_dict matches the expected dictionary."""
+        """Test whether the output of to_dict
+        matches the expected dictionary."""
         current_datetime = datetime.today()
         base_model = BaseModel()
         base_model.id = "123456"
@@ -193,12 +202,14 @@ class TestBaseModelToDict(unittest.TestCase):
         self.assertDictEqual(base_model.to_dict(), expected_dict)
 
     def test_contrast_to_dict_dunder_dict(self):
-        """Test whether the output of to_dict differs from the instance __dict__."""
+        """Test whether the output of to_dict
+        differs from the instance __dict__."""
         base_model = BaseModel()
         self.assertNotEqual(base_model.to_dict(), base_model.__dict__)
 
     def test_to_dict_with_arg(self):
-        """Test whether attempting to call to_dict with an argument raises a TypeError."""
+        """Test whether attempting to call to_dict
+        with an argument raises a TypeError."""
         base_model = BaseModel()
         with self.assertRaises(TypeError):
             base_model.to_dict(None)
@@ -206,4 +217,3 @@ class TestBaseModelToDict(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

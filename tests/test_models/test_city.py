@@ -37,7 +37,8 @@ class TestCity(unittest.TestCase):
     def test_city_str(self):
         """Test for __str__ method."""
         city_instance = City()
-        string_repr = "[City] ({}) {}".format(city_instance.id, city_instance.__dict__)
+        string_repr = "[City] ({}) {}".format(city_instance.id,
+                                              city_instance.__dict__)
         self.assertEqual(string_repr, str(city_instance))
 
     def test_city_save(self):
@@ -61,4 +62,3 @@ class TestCity(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

@@ -8,6 +8,7 @@ from datetime import datetime
 from time import sleep
 from models.user import User
 
+
 class TestUser(unittest.TestCase):
     """Unittest for User class"""
 
@@ -61,4 +62,3 @@ class TestUser(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

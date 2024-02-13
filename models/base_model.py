@@ -43,7 +43,7 @@ class BaseModel:
         return result_dict
 
     def __str__(self):
-        """Produce a string representation of the BaseModel object for display purposes."""
+        """Produce a string representation of the BaseModel
+        object for display purposes."""
         class_name = self.__class__.__name__
         return "[{}] ({}) {}".format(class_name, self.id, self.__dict__)
-

@@ -87,8 +87,6 @@ class HBNBCommand(cmd.Cmd):
         print("*** Unknown syntax: {}".format(arg))
         return False
 
-
-
     def do_EOF(self, arg):
         """EOF signal to exit the program."""
         print("")
@@ -228,7 +226,8 @@ class HBNBCommand(cmd.Cmd):
             obj = objdict["{}.{}".format(argl[0], argl[1])]
             for key, value in eval(argl[2]).items():
                 if (key in obj.__class__.__dict__.keys() and
-                        type(obj.__class__.__dict__[key]) in {str, int, float}):
+                        type(obj.__class__.__dict__[key]) in
+                        {str, int, float}):
                     valtype = type(obj.__class__.__dict__[key])
                     obj.__dict__[key] = valtype(value)
                 else:

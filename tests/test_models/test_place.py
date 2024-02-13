@@ -8,6 +8,7 @@ from datetime import datetime
 from time import sleep
 from models.place import Place
 
+
 class TestPlace(unittest.TestCase):
     """Unittest for Place class"""
 
@@ -92,4 +93,3 @@ class TestPlace(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

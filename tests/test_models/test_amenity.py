@@ -8,6 +8,7 @@ from datetime import datetime
 from time import sleep
 from models.amenity import Amenity
 
+
 class TestAmenity(unittest.TestCase):
     """Unittest for Amenity"""
 

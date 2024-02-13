@@ -8,6 +8,7 @@ from datetime import datetime
 from time import sleep
 from models.state import State
 
+
 class TestState(unittest.TestCase):
     """Unittest for State"""
 
@@ -30,7 +31,8 @@ class TestState(unittest.TestCase):
 
         new_state_instance = State(**sample_dict)
 
-        self.assertEqual(new_state_instance.id, '123e4567-e89b-12d3-a456-426614174000')
+        self.assertEqual(new_state_instance.id,
+                         '123e4567-e89b-12d3-a456-426614174000')
         self.assertEqual(type(new_state_instance.created_at), datetime)
         self.assertEqual(type(new_state_instance.updated_at), datetime)
         self.assertEqual(new_state_instance.name, 'New York')
@@ -56,4 +58,3 @@ class TestState(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
