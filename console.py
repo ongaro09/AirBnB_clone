@@ -4,6 +4,7 @@ aspects of the HBnB application.
 
 The console allows users to perform operations such as creating, updating,
 deleting, and querying objects stored in the application's database."""
+
 import cmd
 import re
 from shlex import split
@@ -17,22 +18,33 @@ from models.amenity import Amenity
 from models.review import Review
 
 
-def parse(arg):
+
+def parse_arguments(arg):
+    """Parse the command arguments into a list of tokens.
+
+    Args:
+        arg (str): The string containing command arguments.
+
+    Returns:
+        list: A list of tokens extracted from the arguments.
+    """
     curly_braces = re.search(r"\{(.*?)\}", arg)
     brackets = re.search(r"\[(.*?)\]", arg)
+
     if curly_braces is None:
         if brackets is None:
             return [i.strip(",") for i in split(arg)]
         else:
-            lexer = split(arg[:brackets.span()[0]])
-            retl = [i.strip(",") for i in lexer]
-            retl.append(brackets.group())
-            return retl
+            token_list = split(arg[:brackets.span()[0]])
+            token_list = [i.strip(",") for i in token_list]
+            token_list.append(brackets.group())
+            return token_list
     else:
-        lexer = split(arg[:curly_braces.span()[0]])
-        retl = [i.strip(",") for i in lexer]
-        retl.append(curly_braces.group())
-        return retl
+        token_list = split(arg[:curly_braces.span()[0]])
+        token_list = [i.strip(",") for i in token_list]
+        token_list.append(curly_braces.group())
+        return token_list
+
 
 
 class HBNBCommand(cmd.Cmd):
